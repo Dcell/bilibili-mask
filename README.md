@@ -24,3 +24,11 @@
 
 具体的实现不细写了，参考demo
 
+## 如何跑Demo
+
+```
+node serve.js
+然后跑Xcode工程
+```
+
+![](https://github.com/Dcell/bilibili-mask/blob/main/Jan-30-2021%2016-09-41.gif)

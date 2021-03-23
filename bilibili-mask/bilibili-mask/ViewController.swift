@@ -25,7 +25,12 @@ class ViewController: UIViewController {
     
     let faceLayer = CALayer()
     let faceMaskLayer = CAShapeLayer()
-
+    let faceBorderLayer:CALayer = {
+        let layer = CALayer()
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.red.cgColor
+        return layer
+    }()
     
     
     var timer:Timer{
@@ -55,10 +60,12 @@ class ViewController: UIViewController {
                         
                         faceViewBounds = faceViewBounds.applying(CGAffineTransform.init(scaleX: scale, y: scale))
                         
-                       
-                        faceViewBounds.origin.x += offsetX
-                        faceViewBounds.origin.y += offsetY
+                        let scaleEx:CGFloat = 20
+                        faceViewBounds.origin.x += (offsetX - scaleEx )
+                        faceViewBounds.origin.y += (offsetY - scaleEx )
+                        faceViewBounds.size = CGSize(width: faceViewBounds.size.width + scaleEx*2, height: faceViewBounds.size.height + scaleEx*2)
                         
+                        self.faceBorderLayer.frame = faceViewBounds
                         
                         let path = UIBezierPath(rect: self.avplaylayer.frame)
                         path.append(UIBezierPath(rect: faceViewBounds))
@@ -89,6 +96,7 @@ class ViewController: UIViewController {
         timer.fire()
         self.avplaylayer.addSublayer(faceLayer)
         self.faceLayer.mask = self.faceMaskLayer
+        self.avplaylayer.addSublayer(faceBorderLayer)
     }
     
     func sendBiuBiuBiu(){
